@@ -7,6 +7,7 @@ public class match {
 
   private int matchId;
   private List<String> commentery;
+  private boolean isFirstInnings;
 
   private team team1;
   private team team2;
@@ -29,6 +30,15 @@ public class match {
     this.inning1 = inning1;
     this.inning2 = inning2;
     this.commentery= new ArrayList<>();
+    this.isFirstInnings = true;
+  }
+
+  public boolean isFirstInnings() {
+    return isFirstInnings;
+  }
+
+  public void setFirstInnings(boolean isFirstInnings) {
+    this.isFirstInnings = isFirstInnings;
   }
 
   public List<String> getCommentery() {
@@ -88,7 +98,7 @@ public class match {
   }
 
   public innings getInning1() {
-    return inning1;
+    return this.inning1;
   }
 
   public void setInning1(innings inning1) {
@@ -96,7 +106,7 @@ public class match {
   }
 
   public innings getInning2() {
-    return inning2;
+    return this.inning2;
   }
 
   public void setInning2(innings inning2) {

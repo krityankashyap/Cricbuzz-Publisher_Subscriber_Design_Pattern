@@ -2,22 +2,26 @@ package subscriber;
 
 import model.innings;
 import model.match;
+import producer.producer;
 
-public class ScoreBoardSubscriber {
+public class ScoreBoardSubscriber implements Subscriber {
   private match match;
 
   public ScoreBoardSubscriber(match match) {
     this.match = match;
   }
 
-  public void update(int curr_over, int curr_ball, int wickets, int runs, boolean isFistInnings) {
+  public void update(producer producer) {
+    boolean isFirstInnings= producer.getMatchData().isFirstInnings();
 
-    innings inning = isFistInnings ? match.getInning1() : match.getInning2();
-    inning.setCurr_over(curr_over);
-    inning.setCurr_ball(curr_ball);
-    inning.setWickets(wickets);
-    inning.setRuns(runs);
-    
-     
+    innings inningsProducer= isFirstInnings ? producer.getMatchData().getInning1() : producer.getMatchData().getInning2();
+
+    innings inningsSubscriber= isFirstInnings ? match.getInning1() : match.getInning2();
+
+    inningsSubscriber.setCurr_over(inningsProducer.getCurr_over());
+    inningsSubscriber.setCurr_ball(inningsProducer.getCurr_ball());
+    inningsSubscriber.setWickets(inningsProducer.getWickets());
+    inningsSubscriber.setRuns(inningsProducer.getRuns());
+
   }
 }

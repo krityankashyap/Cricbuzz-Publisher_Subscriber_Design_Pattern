@@ -3,7 +3,8 @@ package producer;
 import model.match;
 import subscriber.ScoreBoardSubscriber;
 
-public class IccScoreProducer {
+public class IccScoreProducer implements producer {
+  private match match;
   private ScoreBoardSubscriber scoreBoardSubscriber;
 
   public IccScoreProducer(match match, ScoreBoardSubscriber scoreBoardSubscriber) {
@@ -11,7 +12,12 @@ public class IccScoreProducer {
   }
 
   public void updateScore(int curr_over, int curr_ball, int wickets, int runs, boolean isFirstInnings) {
-    scoreBoardSubscriber.update(curr_over, curr_ball, wickets, runs, isFirstInnings);
+    scoreBoardSubscriber.update(this);
+  }
+
+  @Override 
+  public match getMatchData(){
+    return this.match;
   }
 
 }
